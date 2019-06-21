@@ -10,6 +10,8 @@ const blue = chalk.blue;
 const green = chalk.green;
 const yellow = chalk.yellow;
 
+const defaultFileName = 'dependencies-package.log';
+
 
 
 program
@@ -21,7 +23,7 @@ program
 const destPath = program.args[0];
 program.detail = program.detail ? program.detail : false;
 program.output = program.output ? program.output : destPath;
-program.filename = program.filename ? program.filename : 'package-tree.log';
+program.filename = program.filename ? program.filename : defaultFileName;
 // const output = output.replace(/\/$/,'');
 const output = program.output.replace(/\/$/,'') + '/' + program.filename.replace(/^\//,'');
 
@@ -45,6 +47,24 @@ const writeLog = (log_path, content, clear,) => {
     fs.appendFileSync(log_path, content);
   }
 }
+
+// const writeLog = (log_path, content, clear,) => {
+//   if (clear === 'clear'){
+//     if (fs.existsSync(output)) {
+//       fs.unlinkSync(output);
+//     }
+//   }
+//   if (typeof content !== "string") {
+//     console.error(red('ERR: 输出文件类型必须为string'));
+//     process.exit(1);
+//   }
+//   const stat = fs.existsSync(log_path);
+//   if (!stat) {
+//     fs.writeFile(log_path, content, () => console.log(green('写入完成')));
+//   } else {
+//     fs.appendFile(log_path, content, () => console.log(green('追加完成')));
+//   }
+// }
 
 // const destPath = program.args[0];
 
@@ -110,6 +130,9 @@ if (program.detail) {
     })
     // writeLog(output,logArr,'clear' )
     console.log(green('依赖文件目录已生成,文件路径：'+output));
+  } else {
+    console.error(red("ERR: no such file or directory: package-lock.json"));
+    process.exit(1);
   }
 } else {
   console.log(yellow('从node_modules生成依赖列表'));
