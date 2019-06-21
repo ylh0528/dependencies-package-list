@@ -131,6 +131,6 @@ if (program.detail) {
     })
     console.log(green('依赖文件目录已生成,文件路径：'+output));
   } else {
-    console.error(red("ERR: 项目未添加依赖，请确认项目已安装依赖（node_modules)后再执行本脚本！或确认项目内包含package-lock.json时，执行dependencies-package path -d。"))
+    console.error(red("ERR: 项目未添加依赖，请确认项目已安装依赖（node_modules)后再执行本脚本！或确认项目内包含package-lock.json时，执行dep-package path -d。"))
   }
 }
