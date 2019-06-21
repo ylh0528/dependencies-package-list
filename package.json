@@ -1,13 +1,16 @@
 {
-  "name": "dependency-package-list",
+  "name": "dependencies-package-list",
   "version": "1.0.0",
-  "description": "dependency-package statistics",
+  "description": "dependencies-package statistics",
   "main": "lib/index.js",
+  "bin": {
+    "dependencies-package": "src/index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "dependency"
+    "dependencies"
   ],
   "author": "yanlihui",
   "license": "ISC",

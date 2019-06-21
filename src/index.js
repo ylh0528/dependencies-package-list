@@ -21,6 +21,13 @@ program
   .option('-n , --filename [value]', '生成文件名')
   .parse(process.argv);
 const destPath = program.args[0];
+
+// 校验路径
+if (destPath === undefined) {
+  console.error(red("ERR: Path is required!"));
+  process.exit(1);
+}
+
 program.detail = program.detail ? program.detail : false;
 program.output = program.output ? program.output : destPath;
 program.filename = program.filename ? program.filename : defaultFileName;
@@ -48,31 +55,7 @@ const writeLog = (log_path, content, clear,) => {
   }
 }
 
-// const writeLog = (log_path, content, clear,) => {
-//   if (clear === 'clear'){
-//     if (fs.existsSync(output)) {
-//       fs.unlinkSync(output);
-//     }
-//   }
-//   if (typeof content !== "string") {
-//     console.error(red('ERR: 输出文件类型必须为string'));
-//     process.exit(1);
-//   }
-//   const stat = fs.existsSync(log_path);
-//   if (!stat) {
-//     fs.writeFile(log_path, content, () => console.log(green('写入完成')));
-//   } else {
-//     fs.appendFile(log_path, content, () => console.log(green('追加完成')));
-//   }
-// }
-
 // const destPath = program.args[0];
-
-// 校验路径
-if (destPath === undefined) {
-  console.error(red("ERR: Path is required!"));
-  process.exit(1);
-}
 
 const stat = fs.statSync(destPath);
 
@@ -147,5 +130,7 @@ if (program.detail) {
       }
     })
     console.log(green('依赖文件目录已生成,文件路径：'+output));
+  } else {
+    console.error(red("ERR: 项目未添加依赖，请确认项目已安装依赖（node_modules)后再执行本脚本！或确认项目内包含package-lock.json时，执行dependencies-package path -d。"))
   }
 }
